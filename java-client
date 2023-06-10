@@ -67,23 +67,23 @@ public class CompanyDataHandler {
     public static void main(String[] args) {
     CompanyDataHandler dataHandler = new CompanyDataHandler();
 
-    // Upload or update company data
+    
     Document companyData = new Document("CompanyID", 1)
             .append("Name", "ABC Company")
             .append("Location", "XYZ City")
             .append("FoundedYear", 2000);
     dataHandler.uploadOrUpdateCompany(companyData);
 
-    // Modify worker salary
+    
     int workerID = 1;
     int newSalary = 5500;
     dataHandler.modifyWorkerSalary(workerID, newSalary);
 
-    // Delete a department
+    
     int departmentID = 2;
     dataHandler.deleteDepartment(departmentID);
 
-    // Query projects by worker
+    
     int queryWorkerID = 1;
     List<Document> projects = dataHandler.queryProjectsByWorker(queryWorkerID);
     System.out.println("Projects assigned to WorkerID " + queryWorkerID + ":");

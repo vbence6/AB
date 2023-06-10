@@ -1,0 +1,57 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="CompanyDatabase">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Company" type="CompanyType" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="Worker" type="WorkerType" minOccurs="1" maxOccurs="unbounded"/>
+        <xs:element name="Department" type="DepartmentType" minOccurs="1" maxOccurs="unbounded"/>
+        <xs:element name="Project" type="ProjectType" minOccurs="1" maxOccurs="unbounded"/>
+        <xs:element name="AssignedTo" type="AssignedToType" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:complexType name="CompanyType">
+    <xs:sequence>
+      <xs:element name="CompanyID" type="xs:int"/>
+      <xs:element name="Name" type="xs:string"/>
+      <xs:element name="Location" type="xs:string"/>
+      <xs:element name="FoundedYear" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="WorkerType">
+    <xs:sequence>
+      <xs:element name="WorkerID" type="xs:int"/>
+      <xs:element name="Name" type="xs:string"/>
+      <xs:element name="Age" type="xs:int"/>
+      <xs:element name="Gender" type="xs:string"/>
+      <xs:element name="Salary" type="xs:int"/>
+      <xs:element name="DepartmentID" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="DepartmentType">
+    <xs:sequence>
+      <xs:element name="DepartmentID" type="xs:int"/>
+      <xs:element name="Name" type="xs:string"/>
+      <xs:element name="Budget" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ProjectType">
+    <xs:sequence>
+      <xs:element name="ProjectID" type="xs:int"/>
+      <xs:element name="Name" type="xs:string"/>
+      <xs:element name="StartDate" type="xs:date"/>
+      <xs:element name="EndDate" type="xs:date"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="AssignedToType">
+    <xs:sequence>
+      <xs:element name="WorkerID" type="xs:int"/>
+      <xs:element name="ProjectID" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

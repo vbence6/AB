@@ -1,0 +1,66 @@
+<CompanyDatabase>
+  <Company>
+    <CompanyID>1</CompanyID>
+    <Name>ABC Company</Name>
+    <Location>XYZ City</Location>
+    <FoundedYear>2000</FoundedYear>
+  </Company>
+  <Worker>
+    <WorkerID>1</WorkerID>
+    <Name>John Doe</Name>
+    <Age>30</Age>
+    <Gender>Male</Gender>
+    <Salary>5000</Salary>
+    <DepartmentID>1</DepartmentID>
+  </Worker>
+  <Worker>
+    <WorkerID>2</WorkerID>
+    <Name>Jane Smith</Name>
+    <Age>28</Age>
+    <Gender>Female</Gender>
+    <Salary>4500</Salary>
+    <DepartmentID>2</DepartmentID>
+  </Worker>
+  <Worker>
+    <WorkerID>3</WorkerID>
+    <Name>Michael Johnson</Name>
+    <Age>35</Age>
+    <Gender>Male</Gender>
+    <Salary>6000</Salary>
+    <DepartmentID>1</DepartmentID>
+  </Worker>
+  <Department>
+    <DepartmentID>1</DepartmentID>
+    <Name>HR</Name>
+    <Budget>100000</Budget>
+  </Department>
+  <Department>
+    <DepartmentID>2</DepartmentID>
+    <Name>Finance</Name>
+    <Budget>150000</Budget>
+  </Department>
+  <Project>
+    <ProjectID>1</ProjectID>
+    <Name>Project A</Name>
+    <StartDate>2023-01-01</StartDate>
+    <EndDate>2023-06-30</EndDate>
+  </Project>
+  <Project>
+    <ProjectID>2</ProjectID>
+    <Name>Project B</Name>
+    <StartDate>2023-02-15</StartDate>
+    <EndDate>2023-08-31</EndDate>
+  </Project>
+  <AssignedTo>
+    <WorkerID>1</WorkerID>
+    <ProjectID>1</ProjectID>
+  </AssignedTo>
+  <AssignedTo>
+    <WorkerID>2</WorkerID>
+    <ProjectID>1</ProjectID>
+  </AssignedTo>
+  <AssignedTo>
+    <WorkerID>3</WorkerID>
+    <ProjectID>2</ProjectID>
+  </AssignedTo>
+</CompanyDatabase>

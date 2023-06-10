@@ -1,0 +1,86 @@
+
+db.createCollection("Company")
+db.Company.insertOne({
+  CompanyID: 1,
+  Name: "ABC Company",
+  Location: "XYZ City",
+  FoundedYear: 2000
+})
+
+
+db.createCollection("Worker")
+db.Worker.insertMany([
+  {
+    WorkerID: 1,
+    Name: "John Doe",
+    Age: 30,
+    Gender: "Male",
+    Salary: 5000,
+    DepartmentID: 1
+  },
+  {
+    WorkerID: 2,
+    Name: "Jane Smith",
+    Age: 28,
+    Gender: "Female",
+    Salary: 4500,
+    DepartmentID: 2
+  },
+  {
+    WorkerID: 3,
+    Name: "Michael Johnson",
+    Age: 35,
+    Gender: "Male",
+    Salary: 6000,
+    DepartmentID: 1
+  }
+])
+
+
+db.createCollection("Department")
+db.Department.insertMany([
+  {
+    DepartmentID: 1,
+    Name: "HR",
+    Budget: 100000
+  },
+  {
+    DepartmentID: 2,
+    Name: "Finance",
+    Budget: 150000
+  }
+])
+
+
+db.createCollection("Project")
+db.Project.insertMany([
+  {
+    ProjectID: 1,
+    Name: "Project A",
+    StartDate: ISODate("2023-01-01"),
+    EndDate: ISODate("2023-06-30")
+  },
+  {
+    ProjectID: 2,
+    Name: "Project B",
+    StartDate: ISODate("2023-02-15"),
+    EndDate: ISODate("2023-08-31")
+  }
+])
+
+
+db.createCollection("AssignedTo")
+db.AssignedTo.insertMany([
+  {
+    WorkerID: 1,
+    ProjectID: 1
+  },
+  {
+    WorkerID: 2,
+    ProjectID: 1
+  },
+  {
+    WorkerID: 3,
+    ProjectID: 2
+  }
+])

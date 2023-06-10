@@ -1,0 +1,95 @@
+import com.mongodb.client.*;
+import com.mongodb.client.model.Filters;
+import org.bson.Document;
+import org.bson.conversions.Bson;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class CompanyDataHandler {
+    private static final String MONGO_URI = "mongodb://localhost:27017";
+    private static final String DATABASE_NAME = "companydb";
+    private static final String COMPANY_COLLECTION = "Company";
+    private static final String WORKER_COLLECTION = "Worker";
+    private static final String DEPARTMENT_COLLECTION = "Department";
+    private static final String PROJECT_COLLECTION = "Project";
+    private static final String ASSIGNEDTO_COLLECTION = "AssignedTo";
+
+    private MongoClient mongoClient;
+    private MongoDatabase database;
+
+    public CompanyDataHandler() {
+        mongoClient = MongoClients.create(MONGO_URI);
+        database = mongoClient.getDatabase(DATABASE_NAME);
+    }
+
+    public void closeConnection() {
+        mongoClient.close();
+    }
+
+    public void uploadOrUpdateCompany(Document companyData) {
+        MongoCollection<Document> collection = database.getCollection(COMPANY_COLLECTION);
+        Bson filter = Filters.eq("CompanyID", companyData.getInteger("CompanyID"));
+        collection.replaceOne(filter, companyData, new ReplaceOptions().upsert(true));
+        System.out.println("Company data uploaded/updated successfully.");
+    }
+
+    public void modifyWorkerSalary(int workerID, int newSalary) {
+        MongoCollection<Document> collection = database.getCollection(WORKER_COLLECTION);
+        Bson filter = Filters.eq("WorkerID", workerID);
+        Bson update = new Document("$set", new Document("Salary", newSalary));
+        collection.updateOne(filter, update);
+        System.out.println("Worker salary modified successfully.");
+    }
+
+    public void deleteDepartment(int departmentID) {
+        MongoCollection<Document> collection = database.getCollection(DEPARTMENT_COLLECTION);
+        Bson filter = Filters.eq("DepartmentID", departmentID);
+        collection.deleteOne(filter);
+        System.out.println("Department deleted successfully.");
+    }
+
+    public List<Document> queryProjectsByWorker(int workerID) {
+        MongoCollection<Document> assignedToCollection = database.getCollection(ASSIGNEDTO_COLLECTION);
+        Bson filter = Filters.eq("WorkerID", workerID);
+        List<Document> assignedToDocs = assignedToCollection.find(filter).into(new ArrayList<>());
+
+        List<Integer> projectIDs = new ArrayList<>();
+        for (Document doc : assignedToDocs) {
+            projectIDs.add(doc.getInteger("ProjectID"));
+        }
+
+        MongoCollection<Document> projectCollection = database.getCollection(PROJECT_COLLECTION);
+        Bson projectFilter = Filters.in("ProjectID", projectIDs);
+        return projectCollection.find(projectFilter).into(new ArrayList<>());
+    }
+
+    public static void main(String[] args) {
+    CompanyDataHandler dataHandler = new CompanyDataHandler();
+
+    // Upload or update company data
+    Document companyData = new Document("CompanyID", 1)
+            .append("Name", "ABC Company")
+            .append("Location", "XYZ City")
+            .append("FoundedYear", 2000);
+    dataHandler.uploadOrUpdateCompany(companyData);
+
+    // Modify worker salary
+    int workerID = 1;
+    int newSalary = 5500;
+    dataHandler.modifyWorkerSalary(workerID, newSalary);
+
+    // Delete a department
+    int departmentID = 2;
+    dataHandler.deleteDepartment(departmentID);
+
+    // Query projects by worker
+    int queryWorkerID = 1;
+    List<Document> projects = dataHandler.queryProjectsByWorker(queryWorkerID);
+    System.out.println("Projects assigned to WorkerID " + queryWorkerID + ":");
+    for (Document project : projects) {
+        System.out.println(project);
+    }
+
+    dataHandler.closeConnection();
+}
